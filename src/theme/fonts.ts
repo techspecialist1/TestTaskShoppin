@@ -1,11 +1,12 @@
 import { moderateScale } from "../utils/responsive-metrics";
 
 export const fonts = {
-  roboto_500: 'Inter-Medium',
-  roboto_600: 'Inter-SemiBold',
-  roboto_700: 'Inter-Bold',
-  roboto_800: 'Inter-ExtraBold',
-  roboto_400: 'Inter-Regular',
+  notoSans_500: 'NotoSans-Medium',
+  notoSans_600: 'NotoSans-SemiBold',
+  notoSans_700: 'NotoSans-Bold',
+  notoSans_800: 'NotoSans-ExtraBold',
+  notoSans_400: 'NotoSans-Regular',
+  notoSans_300: 'NotoSans-Light',
 };
   
 

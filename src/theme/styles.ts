@@ -72,45 +72,39 @@ export const _: Styles = StyleSheet.create<Styles>({
   },
 
   ['h1']: {
-    fontFamily: fonts.roboto_700,
+    fontFamily: fonts.notoSans_700,
     fontSize: fontSize["20"],
     fontStyle: "normal",
-    fontWeight: "700",
     color: COLORS.black
   },
   ['h3']: {
-    fontFamily: fonts.roboto_700, 
+    fontFamily: fonts.notoSans_600, 
     fontSize: fontSize["14"],
     fontStyle: "normal",
-    fontWeight: "700",
     color: COLORS.black
   },
   ['h2']: {
-    fontFamily: fonts.roboto_700,
+    fontFamily: fonts.notoSans_700,
     fontSize: fontSize["16"],
     fontStyle: "normal",
-    fontWeight: "700",
     color: COLORS.black
   },
   ['body-1']: {
-    fontFamily: fonts.roboto_400,
+    fontFamily: fonts.notoSans_400,
     fontSize: fontSize["14"],
     fontStyle: "normal",
-    fontWeight: "400",
     color: COLORS.black
   },
   ['body-2']: {
-    fontFamily: fonts.roboto_500, 
+    fontFamily: fonts.notoSans_400, 
     fontSize: fontSize["13"],
     fontStyle: "normal",
-    fontWeight: "500",
     color: COLORS.black
   },
   ['body-3']: {
-    fontFamily: fonts.roboto_400,
+    fontFamily: fonts.notoSans_300,
     fontSize: fontSize["12"],
     fontStyle: "normal",
-    fontWeight: "400",
     color: COLORS.black
   },
   

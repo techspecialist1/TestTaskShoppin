@@ -1,6 +1,6 @@
-import { StyleSheet, TextStyle, ViewStyle } from "react-native";
-import { COLORS, fontSize, fonts } from ".";
-import { moderateScale } from "../utils";
+import {StyleSheet, TextStyle, ViewStyle} from 'react-native';
+import {COLORS, fontSize, fonts} from '.';
+import {moderateScale} from '../utils';
 
 interface Styles {
   [key: string]: ViewStyle | TextStyle;
@@ -19,28 +19,28 @@ export const _: Styles = StyleSheet.create<Styles>({
 
   ['align-start']: {
     display: 'flex',
-    alignItems: "flex-start",
+    alignItems: 'flex-start',
   },
   ['align-center']: {
     display: 'flex',
-    alignItems: "center",
+    alignItems: 'center',
   },
   ['align-end']: {
     display: 'flex',
-    alignItems: "flex-end",
+    alignItems: 'flex-end',
   },
 
   ['justifyContent-start']: {
     display: 'flex',
-    justifyContent: "flex-start",
+    justifyContent: 'flex-start',
   },
   ['justifyContent-center']: {
     display: 'flex',
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   ['justifyContent-end']: {
     display: 'flex',
-    justifyContent: "flex-end",
+    justifyContent: 'flex-end',
   },
 
   ['flex-center']: {
@@ -51,7 +51,7 @@ export const _: Styles = StyleSheet.create<Styles>({
   ['flex-space-between']: {
     display: 'flex',
     alignItems: 'flex-start',
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
   },
 
   ['flex-space-between-row']: {
@@ -73,44 +73,55 @@ export const _: Styles = StyleSheet.create<Styles>({
 
   ['h1']: {
     fontFamily: fonts.notoSans_700,
-    fontSize: fontSize["20"],
-    fontStyle: "normal",
-    color: COLORS.black
+    fontSize: fontSize['20'],
+    fontStyle: 'normal',
+    color: COLORS.white,
   },
   ['h3']: {
-    fontFamily: fonts.notoSans_600, 
-    fontSize: fontSize["14"],
-    fontStyle: "normal",
-    color: COLORS.black
+    fontFamily: fonts.notoSans_600,
+    fontSize: fontSize['14'],
+    fontStyle: 'normal',
+    color: COLORS.white,
   },
   ['h2']: {
     fontFamily: fonts.notoSans_700,
-    fontSize: fontSize["16"],
-    fontStyle: "normal",
-    color: COLORS.black
+    fontSize: fontSize['16'],
+    fontStyle: 'normal',
+    color: COLORS.white,
+  },
+  ['h4']: {
+    fontFamily: fonts.notoSans_600,
+    fontSize: fontSize['12'],
+    fontStyle: 'normal',
+    color: COLORS.white,
+  },
+  ['body']: {
+    fontFamily: fonts.notoSans_400,
+    fontSize: fontSize['16'],
+    fontStyle: 'normal',
+    color: COLORS.white,
   },
   ['body-1']: {
     fontFamily: fonts.notoSans_400,
-    fontSize: fontSize["14"],
-    fontStyle: "normal",
-    color: COLORS.black
+    fontSize: fontSize['14'],
+    fontStyle: 'normal',
+    color: COLORS.white,
   },
   ['body-2']: {
-    fontFamily: fonts.notoSans_400, 
-    fontSize: fontSize["13"],
-    fontStyle: "normal",
-    color: COLORS.black
+    fontFamily: fonts.notoSans_400,
+    fontSize: fontSize['13'],
+    fontStyle: 'normal',
+    color: COLORS.white,
   },
   ['body-3']: {
     fontFamily: fonts.notoSans_300,
-    fontSize: fontSize["12"],
-    fontStyle: "normal",
-    color: COLORS.black
+    fontSize: fontSize['12'],
+    fontStyle: 'normal',
+    color: COLORS.white,
   },
-  
 
   ['body-padding']: {
-    paddingLeft: moderateScale(24),
-    paddingRight: moderateScale(24),
+    paddingLeft: moderateScale(18),
+    paddingRight: moderateScale(18),
   },
 });

@@ -1,5 +1,6 @@
 import {
   ImageSearchLogo,
+  MoonIcon,
   MusicLogo,
   StudyLogo,
   TranslateLogo,
@@ -39,25 +40,19 @@ export const InfoData = [
     id: 1,
     title: 'Gurugram',
     description: '30',
-    image: 'image',
+    type: 'wather',
   },
   {
     id: 2,
-    title: 'Gurugram',
+    title: 'Air quality - 101',
     description: '30',
-    image: 'image',
+    type: 'air-quality',
   },
   {
     id: 3,
-    title: 'Gurugram',
+    title: 'Settings',
     description: '30',
-    image: 'image',
-  },
-  {
-    id: 4,
-    title: 'Gurugram',
-    description: '30',
-    image: 'image',
+    type: 'setting',
   },
 ];
 

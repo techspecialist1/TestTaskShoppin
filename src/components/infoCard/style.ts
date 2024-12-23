@@ -21,4 +21,10 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+
+  iconCont: {
+    backgroundColor: COLORS.box_yellow,
+    borderRadius: moderateScale(50),
+    padding: moderateScale(5),
+  },
 });

@@ -60,7 +60,7 @@ const renderHeader = () => (
         <InfoCard
           title={item.title}
           description={item.description}
-          image={item.image}
+          type={item.type}
         />
       )}
     />

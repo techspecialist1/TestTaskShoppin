@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {moderateScale} from '../../utils';
+import {COLORS} from '../../theme';
 
 export const styles = StyleSheet.create({
   container: {
@@ -21,10 +22,18 @@ export const styles = StyleSheet.create({
   },
   footerLeft: {
     flexDirection: 'row',
+    gap: moderateScale(10),
   },
   footerRight: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     flex: 0.6,
+  },
+
+  publisher: {
+    backgroundColor: COLORS.box_blue,
+    height: moderateScale(25),
+    width: moderateScale(25),
+    borderRadius: moderateScale(50),
   },
 });

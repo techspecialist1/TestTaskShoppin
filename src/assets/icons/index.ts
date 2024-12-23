@@ -12,6 +12,13 @@ import MusicLogo from './music.svg';
 import TranslateLogo from './translate.svg';
 import StudyLogo from './study.svg';
 import ImageSearchLogo from './Image-search.svg';
+import LanguageIcon from './language.svg';
+import AirIcon from './air.svg';
+import MoonIcon from './moon.svg';
+import SettingsIcon from './settings.svg';
+import SaveIcon from './save.svg';
+import ShareIcon from './share.svg';
+import MoreIcon from './more.svg';
 
 export {
   ArrowLeftIcon,
@@ -28,4 +35,11 @@ export {
   StudyLogo,
   TranslateLogo,
   ImageSearchLogo,
+  LanguageIcon,
+  MoonIcon,
+  AirIcon,
+  SettingsIcon,
+  SaveIcon,
+  ShareIcon,
+  MoreIcon,
 };

@@ -47,9 +47,17 @@ const History: React.FC<HistoryProps> = ({
   );
 };
 
-const Search = () => {
+const Search = ({route}) => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [suggestions, setSuggestions] = useState<Array<string>>([]);
+
+  const {transcript} = route?.params || {}; // Ensure route.params is checked before accessing transcript
+
+  useEffect(() => {
+    if (transcript) {
+      setSearchQuery(transcript);
+    }
+  }, [transcript, setSearchQuery]);
 
   const fetchSuggestions = async (input: string) => {
     if (!input) {

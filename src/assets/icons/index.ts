@@ -19,6 +19,20 @@ import SettingsIcon from './settings.svg';
 import SaveIcon from './save.svg';
 import ShareIcon from './share.svg';
 import MoreIcon from './more.svg';
+import AccountCircle from './account_circle.svg';
+
+import Grade from './grade.svg';
+
+import HelpOutline from './help_outline.svg';
+
+import Interests from './interests.svg';
+
+import SafetyCheck from './safety_check.svg';
+
+import VpnKey from './vpn_key.svg';
+import HistorySearch from './history_search.svg';
+
+
 
 export {
   ArrowLeftIcon,
@@ -42,4 +56,11 @@ export {
   SaveIcon,
   ShareIcon,
   MoreIcon,
+  AccountCircle,
+  Grade,
+  HelpOutline,
+  Interests,
+  SafetyCheck,
+  VpnKey,
+  HistorySearch
 };

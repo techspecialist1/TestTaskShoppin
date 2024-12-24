@@ -1,11 +1,21 @@
 import {
+  AccountCircle,
+  AirIcon,
+  Grade,
+  HelpOutline,
+  HistoryIcon,
+  HistorySearch,
   ImageSearchLogo,
+  Interests,
   MoonIcon,
   MusicLogo,
+  SafetyCheck,
+  SettingsIcon,
   StudyLogo,
   TranslateLogo,
+  VpnKey,
 } from '../../assets/icons';
-import {COLORS} from '../../theme';
+import { COLORS } from '../../theme';
 
 export const CategoryData = [
   {
@@ -94,3 +104,68 @@ export const HeadLinesData = [
     publishedAt: '10-10-2024',
   },
 ];
+
+export const renderAccountData = [
+  {
+    id: 1,
+    item: 'Turn on Incognito',
+    icon: AirIcon,
+    seperator: true
+  },
+  {
+    id: 2,
+    item: 'Search history',
+    icon: HistorySearch,
+    state: 'Saving',
+    seperator: true
+
+  },
+  {
+    id: 3,
+    item: 'Delete last 15 mins',
+    icon: null,
+    seperator: true
+  },
+  {
+    id: 4,
+    item: 'Safe Search',
+    icon: SafetyCheck,
+  },
+  {
+    id: 5,
+    item: 'Interests',
+    icon: Interests,
+  },
+  {
+    id: 6,
+    item: 'Passwords',
+    icon: VpnKey,
+  },
+  {
+    id: 7,
+    item: 'Your Profile',
+    icon: AccountCircle,
+  },
+  {
+    id: 8,
+    item: 'Search personalisation',
+    icon: Grade,
+    seperator: true
+  },
+  {
+    id: 9,
+    item: 'Settings',
+    icon: SettingsIcon,
+  },
+  {
+    id: 10,
+    item: 'Help and feedback',
+    icon: HelpOutline,
+    seperator: true
+
+  },
+
+
+
+
+]

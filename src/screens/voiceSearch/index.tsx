@@ -21,19 +21,12 @@ import {moderateScale} from '../../utils';
 import {useNavigation} from '@react-navigation/native';
 import {requestMicrophonePermission} from '../../utils';
 
-const Header = () => {
+const Header = ({stopListening}: {stopListening: () => void}) => {
   const navigation = useNavigation<any>();
-  const {ReactOneCustomMethod} = NativeModules;
 
   const goBackHandler = async () => {
+    stopListening();
     navigation.goBack();
-    try {
-      await ReactOneCustomMethod.startListening();
-    } catch (err: any) {
-      console.log('====================================');
-      console.log((err.message, 'An error occurred'));
-      console.log('====================================');
-    }
   };
 
   return (
@@ -132,14 +125,14 @@ const SearchButton = () => {
 };
 
 const VoiceSearch = () => {
-  const {ReactOneCustomMethod} = NativeModules;
+  const {ReactOneCustomMethod, ObjectDetection} = NativeModules;
   const navigation = useNavigation<any>();
 
   const [text, setText] = useState('');
-  const [listning, setListning] = useState<boolean>(true);
+  const [listening, setListening] = useState<boolean>(true);
 
   const handleStartListening = async () => {
-    setListning(true);
+    setListening(true);
     const hasPermission = await PermissionsAndroid.check(
       PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
     );
@@ -148,17 +141,37 @@ const VoiceSearch = () => {
     }
     try {
       const transcription = await ReactOneCustomMethod.startListening();
-      setListning(false);
+      const demo = await ReactOneCustomMethod.getPhoneID();
+      console.log('====================================');
+      console.log(demo);
+      console.log('====================================');
+
+      setListening(false);
       setText(transcription);
       navigation.navigate('Search', {transcript: transcription});
     } catch (err: any) {
-      setListning(false);
+      setListening(false);
+      console.log('====================================');
+      console.log(err.message);
+      console.log('====================================');
       setText(err.message || 'An error occurred.');
+    }
+  };
+
+  const handleStopListening = async () => {
+    try {
+      await ReactOneCustomMethod.stopListening(); // Add this stop function in your NativeModules
+      setListening(false);
+    } catch (err) {
+      console.error('Error stopping listening:', err);
     }
   };
 
   useEffect(() => {
     handleStartListening();
+    return () => {
+      handleStopListening();
+    };
   }, []);
 
   return (
@@ -169,12 +182,12 @@ const VoiceSearch = () => {
         backgroundColor={COLORS.primary}
       />
       <View style={styles.container}>
-        <Header />
+        <Header stopListening={handleStopListening} />
         <View style={styles.mainContent}>
           <Text style={_['body']}>
-            {listning ? 'Speak Now' : 'Press button to voice search'}
+            {listening ? 'Speak Now' : 'Press button to voice search'}
           </Text>
-          {listning ? (
+          {listening ? (
             <DotIndicator />
           ) : (
             <TouchableOpacity
@@ -189,7 +202,7 @@ const VoiceSearch = () => {
             </TouchableOpacity>
           )}
 
-          <Text style={_['h3']}>{!listning && text}</Text>
+          <Text style={_['h3']}>{!listening && text}</Text>
 
           <SearchButton />
         </View>

@@ -140,17 +140,29 @@ public class ReactOneCustomMethod extends ReactContextBaseJavaModule {
     @ReactMethod
     public void stopListening(Promise promise) {
         try {
-            if (speechRecognizer != null) {
-                // Stop the listening process if it's currently active
-                speechRecognizer.stopListening();
-                promise.resolve("Listening stopped");
-            } else {
-                promise.reject("Error", "SpeechRecognizer not initialized or already stopped");
-            }
+            new Handler(Looper.getMainLooper()).post(() -> {
+                if (speechRecognizer != null) {
+                    try {
+                        // Stop the listening process
+                        speechRecognizer.stopListening();
+                        
+                        // Clear the RecognitionListener to avoid memory leaks
+                        speechRecognizer.setRecognitionListener(null);
+    
+                        promise.resolve("Listening stopped");
+                    } catch (Exception e) {
+                        promise.reject("StopListeningError", e);
+                    }
+                } else {
+                    promise.reject("Error", "SpeechRecognizer not initialized or already stopped");
+                }
+            });
         } catch (Exception e) {
             promise.reject("StopListeningError", e);
         }
     }
+    
+    
     
 
     @Override

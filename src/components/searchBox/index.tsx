@@ -92,7 +92,9 @@ const SearchBox: React.FC<SuggestionProps> = ({
                 fill={COLORS.white}
               />
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={0.7}>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => navigation.navigate('LensSearch')}>
               <CameraIcon
                 height={moderateScale(27)}
                 width={moderateScale(27)}

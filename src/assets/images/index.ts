@@ -1,2 +1,3 @@
 const GoogleLogo = require('./google-white-logo.png');
-export {GoogleLogo};
+const GoogleIcon = require('./googleIcon.webp');
+export {GoogleLogo, GoogleIcon};

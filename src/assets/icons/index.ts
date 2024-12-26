@@ -32,7 +32,7 @@ import SafetyCheck from './safety_check.svg';
 import VpnKey from './vpn_key.svg';
 import HistorySearch from './history_search.svg';
 
-
+import GoogleIcon from './googleIcon.svg';
 
 export {
   ArrowLeftIcon,
@@ -62,5 +62,6 @@ export {
   Interests,
   SafetyCheck,
   VpnKey,
-  HistorySearch
+  HistorySearch,
+  GoogleIcon,
 };

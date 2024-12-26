@@ -51,7 +51,7 @@ const Search = ({route}) => {
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [suggestions, setSuggestions] = useState<Array<string>>([]);
 
-  const {transcript} = route?.params || {}; // Ensure route.params is checked before accessing transcript
+  const {transcript} = route?.params || {};
 
   useEffect(() => {
     if (transcript) {

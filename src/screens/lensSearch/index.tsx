@@ -1,44 +1,98 @@
-import axios from 'axios';
-import React, {useState} from 'react';
+import {useNavigation} from '@react-navigation/native';
+import React, {useEffect, useState} from 'react';
 import {
   Alert,
+  BackHandler,
   Image,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
+  StatusBar,
+  FlatList,
+  ActivityIndicator,
 } from 'react-native';
 import ImagePicker, {Image as ImageType} from 'react-native-image-crop-picker';
+import {ArrowLeftIcon, MoreIcon} from '../../assets/icons';
+import {GoogleLogo} from '../../assets/images';
+import {_, COLORS} from '../../theme';
+import {moderateScale} from '../../utils';
+import {styles} from './style';
+import {SearchBox} from '../../components';
+import {GoogleLensResults} from './data';
+
+const HeaderComponent = ({originalImage, recropImage, image, loading}) => {
+  return (
+    <View style={{backgroundColor: COLORS.black}}>
+      <TouchableOpacity
+        activeOpacity={0.7}
+        onPress={() => recropImage(originalImage || '')}
+        style={styles.imgCont}>
+        {image && <Image source={{uri: image}} style={styles.image} />}
+      </TouchableOpacity>
+      <View style={[styles.botomSheetCont, _['body-padding']]}>
+        <View style={styles.sheetIndicator} />
+        <SearchBox
+          logo={true}
+          placeholder="Add to your search"
+          type="button"
+          leansSearch={false}
+        />
+        {loading && (
+          <View style={{marginTop: moderateScale(20)}}>
+            <ActivityIndicator size="large" color={COLORS.white} />
+          </View>
+        )}
+      </View>
+    </View>
+  );
+};
+
+const searchCard = item => {
+  return (
+    <View style={styles.searchCard}>
+      <Image
+        style={styles.imageCont}
+        source={{uri: item.image_url}}
+        height={200}
+        resizeMode="cover"
+      />
+      <View>
+        <Text style={[_['body'], {color: COLORS.grey}]}>{item.title}</Text>
+        <Text style={_['h3']}>{item.description}</Text>
+      </View>
+    </View>
+  );
+};
 
 const LensSearch: React.FC = () => {
-  const [image, setImage] = useState<string | null>(null); // Cropped image path
-  const [originalImage, setOriginalImage] = useState<string | null>(null); // Original image path
-  const [imageBase64, setImageBase64] = useState<string | null>(null); // Cropped image Base64
-  const [loading, setLoading] = useState<boolean>(false);
+  const navigation = useNavigation<any>();
+  const [image, setImage] = useState<string | null>(null);
+  const [originalImage, setOriginalImage] = useState<string | null>(null);
 
-  // const detectObject = async (path: any) => {
-  //   const detectedLabels = await detectObjects(path);
-  //   console.log('====================================');
-  //   console.log(detectedLabels);
-  //   console.log('====================================');
-  // };
+  const [loading, setLoading] = useState(false);
+  const [shuffled, setShuffled] = useState([]);
 
-  // Open the image gallery
-  const openGallery = () => {
-    ImagePicker.openPicker({
-      cropping: false,
-      mediaType: 'photo',
-      includeBase64: true,
-    })
-      .then((image: ImageType) => {
-        setOriginalImage(image.path); // Save the original image path
-        recropImage(image.path);
-      })
-      .catch(error => {
-        Alert.alert('Image is not picked from gallery');
-        console.log('Error picking image from gallery:', error);
-      });
-  };
+  useEffect(() => {
+    openCamera();
+  }, []);
+
+  useEffect(() => {
+    setShuffled([]);
+    setLoading(true);
+    if (image) {
+      let shuffledData = GoogleLensResults.map(value => ({
+        value,
+        sort: Math.random(),
+      }))
+        .sort((a, b) => a.sort - b.sort)
+        .map(({value}) => value);
+
+      setTimeout(() => {
+        setShuffled(shuffledData);
+        setLoading(false);
+      }, 3000);
+    }
+  }, [image]);
 
   // Open the camera
   const openCamera = () => {
@@ -51,15 +105,23 @@ const LensSearch: React.FC = () => {
         setOriginalImage(image.path);
         recropImage(image.path);
         setImage(image.path);
-        setImageBase64(image.data || '');
       })
       .catch(error => {
-        Alert.alert('Image is not captured from camera');
         console.log('Error capturing image from camera:', error);
+        navigation.goBack();
       });
+    return true;
   };
 
-  // Re-crop the image using the original image path
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      openCamera,
+    );
+
+    return () => backHandler.remove();
+  }, []);
+
   const recropImage = (originalImage: string) => {
     if (!originalImage) {
       Alert.alert('No Image', 'Please select or capture an image first!');
@@ -71,132 +133,61 @@ const LensSearch: React.FC = () => {
       includeBase64: true,
     })
       .then((croppedImage: ImageType) => {
-        setImage(croppedImage.path); // Update the cropped image
-        setImageBase64(croppedImage.data || '');
+        setImage(croppedImage.path);
       })
       .catch(error => {
         console.log('Error recropping image:', error);
       });
   };
 
-  const analizeImage = async () => {
-    setLoading(true);
-    try {
-      if (!image && !imageBase64) {
-        Alert.alert('Please Select an Image');
-        setLoading(false);
-        return;
-      }
-
-      // if (image) {
-      //   detectObject(image);
-      // }
-
-      const API_KEY = 'AIzaSyDtI1htzZtXJQzXsN6Dgxq7cGEH5ux7vnQ';
-      const apiUrl = `https://vision.googleapis.com/v1/images:annotate?key=${API_KEY}`;
-
-      const requestData = {
-        requests: [
-          {
-            image: {
-              content: imageBase64,
-            },
-            features: [{type: 'IMAGE_PROPERTIES', maxResults: 5}],
-          },
-        ],
-      };
-
-      const response = await axios.post(apiUrl, requestData);
-      setLoading(false);
-      console.log('====================================');
-      console.log(response.data);
-      console.log('====================================');
-    } catch (error: any) {
-      setLoading(false);
-      console.log('====================================');
-      console.log('Error Status:', error.response);
-      console.log('====================================');
-    }
-  };
-
   return (
-    <View style={styles.container}>
-      <TouchableOpacity
-        activeOpacity={0.7}
-        onPress={() => recropImage(originalImage || '')}
-        style={styles.imgCont}>
-        {image && <Image source={{uri: image}} style={styles.image} />}
-      </TouchableOpacity>
-
-      <View>
-        <View style={{flexDirection: 'row', gap: 20}}>
-          <TouchableOpacity onPress={openGallery} style={styles.button}>
-            <Text style={styles.buttonText}>Open Gallery</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={openCamera} style={styles.button}>
-            <Text style={styles.buttonText}>Open Camera</Text>
-          </TouchableOpacity>
-        </View>
-
-        <TouchableOpacity
-          disabled={loading}
-          onPress={analizeImage}
-          style={[
-            styles.button,
-            {backgroundColor: loading ? 'gray' : '#007bff'},
-          ]}>
-          <Text style={styles.buttonText}>Analyze Image</Text>
+    <>
+      <StatusBar backgroundColor={'transparent'} />
+      <View
+        style={[
+          _['flex-space-between-row'],
+          styles.header,
+          _['align-center'],
+          _['body-padding'],
+        ]}>
+        <TouchableOpacity onPress={openCamera}>
+          <ArrowLeftIcon
+            fill={'white'}
+            height={moderateScale(23)}
+            width={moderateScale(23)}
+          />
         </TouchableOpacity>
-
-        {/* <TouchableOpacity onPress={()=>recropImage(originalImage || '')} style={styles.button}>
-          <Text style={styles.buttonText}>Re-Crop Image</Text>
-        </TouchableOpacity> */}
-      </View>
-
-      {loading && (
-        <View>
-          <Text>Loading...</Text>
+        <View
+          style={[_['flex-row'], _['align-center'], {gap: moderateScale(3)}]}>
+          <View style={styles.titleContainer}>
+            <Image style={styles.logo} source={GoogleLogo} />
+          </View>
+          <Text style={[_['body']]}>Lens</Text>
         </View>
-      )}
-    </View>
+        <MoreIcon
+          fill={'white'}
+          height={moderateScale(25)}
+          width={moderateScale(25)}
+        />
+      </View>
+      <FlatList
+        numColumns={2}
+        data={shuffled}
+        style={[styles.container]}
+        columnWrapperStyle={[styles.columnWrapper, _['body-padding']]}
+        contentContainerStyle={{gap: moderateScale(20)}}
+        ListHeaderComponent={() =>
+          HeaderComponent({
+            image: image,
+            originalImage: originalImage,
+            recropImage: recropImage,
+            loading: loading,
+          })
+        }
+        renderItem={({item}) => searchCard(item)}
+      />
+    </>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    padding: 30,
-  },
-  button: {
-    backgroundColor: '#007bff',
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 16,
-    textAlign: 'center',
-  },
-  imgCont: {
-    width: '95%',
-    backgroundColor: '#cbd5e1',
-    height: '50%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-    borderRadius: 10,
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-    borderRadius: 10,
-    resizeMode: 'contain',
-    objectFit: 'contain',
-  },
-});
 
 export default LensSearch;

@@ -15,4 +15,14 @@ export const styles = StyleSheet.create({
     flex: 1,
     height: moderateScale(65),
   },
+
+  logoCont: {
+    height: moderateScale(20),
+    width: moderateScale(20),
+  },
+
+  logo: {
+    height: '100%',
+    width: '100%',
+  },
 });

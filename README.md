@@ -1,4 +1,43 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+This project is a basic clone of the Google app with the following features:
+
+### Search functionality: 
+Simulating Google search using Google autocomplete suggestions.
+### Google Lens simulation: 
+A simple feature to emulate Google Lens with predefined dataset.
+### Voice Search: 
+Implemented using a native module on Android.
+
+# Features
+
+### Search:
+Users can enter a query in the search bar and view results using Google autocomplete suggestions.
+
+### Google Lens:
+Users can upload or select an image to simulate recognition and display results using predefined dataset.
+
+### Voice Search (Android Only):
+Voice search functionality is implemented using a native Android module.
+Ensure microphone permissions are granted for this feature to work.
+
+# Limitations
+Voice Search and Google Lens are currently supported only on Android, as they rely on native modules. Google Lens search features are implemented using predefined dataset.
+
+# Usage
+
+### Search: 
+Enter text in the search bar and can see autocomplete suggestions.
+
+### Google Lens: 
+Upload or select an image to view simulated recognition results.
+
+### Voice Search (Android): 
+Use the microphone button to speak your query and view search results.
+
+# Notes
+The app uses predefined dataset for Google Lens search functionalities.
+
+The project is for educational purposes only and is not affiliated with Google
+
 
 # Getting Started
 
@@ -45,24 +84,6 @@ yarn ios
 If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
 
 This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
-
-## Step 3: Modifying your App
-
-Now that you have successfully run the app, let's modify it.
-
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
-
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
 
 # Troubleshooting
 
